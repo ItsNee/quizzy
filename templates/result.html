@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Quiz Result{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6">
+        <h1>Quiz Result</h1>
+        <div class="card">
+            <div class="card-body">
+                <p>Your Score: <strong>{{ score }}</strong> out of <strong>{{ total }}</strong></p>
+                <a href="/" class="btn btn-primary">Take the quiz again</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

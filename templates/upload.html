@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Upload CSV{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6">
+        <h1>Upload CSV</h1>
+        <form method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="file">Choose CSV File</label>
+                <input type="file" class="form-control-file" name="file" id="file" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Upload</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

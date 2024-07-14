@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Quiz{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-8">
+        <h1>Quiz</h1>
+        <form method="post" action="/submit">
+            {% for question in questions %}
+            <div class="card mb-4">
+                <div class="card-body">
+                    <p><strong>{{ loop.index }}. {{ question['question'] }}</strong></p>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q{{ question['id'] }}" value="1" required>
+                        <label class="form-check-label">{{ question['option1'] }}</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q{{ question['id'] }}" value="2">
+                        <label class="form-check-label">{{ question['option2'] }}</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q{{ question['id'] }}" value="3">
+                        <label class="form-check-label">{{ question['option3'] }}</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q{{ question['id'] }}" value="4">
+                        <label class="form-check-label">{{ question['option4'] }}</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="q{{ question['id'] }}" value="5">
+                        <label class="form-check-label">{{ question['option5'] }}</label>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
