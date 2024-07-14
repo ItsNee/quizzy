@@ -1,2 +1,3 @@
 
-data/quiz.db
+data/*.db
+uploads/*.csv

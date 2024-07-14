@@ -6,7 +6,8 @@
 <div class="row justify-content-center mt-5">
     <div class="col-md-8">
         <h1>Quiz</h1>
-        <form method="post" action="/submit">
+        <div id="timer" class="alert alert-info text-center">Time remaining: <span id="time">02:00:00</span></div>
+        <form method="post" action="/submit" id="quizForm">
             {% for question in questions %}
             <div class="card mb-4">
                 <div class="card-body">
@@ -38,4 +39,30 @@
         </form>
     </div>
 </div>
+
+<script>
+// Set the timer duration (2 hours)
+let timerDuration = 2 * 60 * 60;
+
+function startTimer() {
+    let timer = document.getElementById('time');
+    let interval = setInterval(function() {
+        let hours = parseInt(timerDuration / 3600, 10);
+        let minutes = parseInt((timerDuration % 3600) / 60, 10);
+        let seconds = parseInt(timerDuration % 60, 10);
+        hours = hours < 10 ? "0" + hours : hours;
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+        timer.textContent = hours + ":" + minutes + ":" + seconds;
+        if (--timerDuration < 0) {
+            clearInterval(interval);
+            document.getElementById('quizForm').submit();
+        }
+    }, 1000);
+}
+
+window.onload = function() {
+    startTimer();
+};
+</script>
 {% endblock %}

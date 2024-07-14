@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Panel{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-12 col-lg-10">
+        <h1>Admin Panel</h1>
+
+        <h2>Available Quizzes</h2>
+        <ul class="list-group mb-4">
+            {% for quiz in quizzes %}
+            <li class="list-group-item d-flex justify-content-between align-items-center bg-dark text-white">
+                <span>{{ quiz['name'] }}</span>
+                <a href="{{ url_for('edit_quiz', quiz_id=quiz['id']) }}" class="btn btn-primary btn-sm">Edit</a>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <h2>Users</h2>
+        <ul class="list-group mb-4">
+            {% for user in users %}
+            <li class="list-group-item d-flex justify-content-between align-items-center bg-dark text-white">
+                <span>{{ user['username'] }}</span>
+                <a href="{{ url_for('user_attempts', user_id=user['id']) }}" class="btn btn-primary btn-sm">View Attempts</a>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <h2>Registration Code</h2>
+        <p class="bg-dark text-white p-2">Current Registration Code: {{ registration_code }}</p>
+        <form method="POST">
+            <button type="submit" name="regenerate_code" class="btn btn-warning">Regenerate Registration Code</button>
+        </form>
+
+        <h2>Import New Quiz</h2>
+        <form method="post" enctype="multipart/form-data" class="mt-4">
+            <div class="form-group">
+                <label for="quiz_name">Quiz Name</label>
+                <input type="text" class="form-control" name="quiz_name" id="quiz_name" required>
+            </div>
+            <div class="form-group">
+                <label for="file">CSV File</label>
+                <input type="file" class="form-control-file" name="file" id="file" required>
+            </div>
+            <button type="submit" class="btn btn-success">Import Quiz</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Question{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-8">
+        <h1>Edit Question</h1>
+        <form method="post" class="mb-4">
+            <div class="form-group">
+                <label for="question">Question</label>
+                <input type="text" class="form-control" name="question" value="{{ question['question'] }}" required>
+            </div>
+            <div class="form-group">
+                <label for="option1">Option 1</label>
+                <input type="text" class="form-control" name="option1" value="{{ question['option1'] }}" required>
+            </div>
+            <div class="form-group">
+                <label for="option2">Option 2</label>
+                <input type="text" class="form-control" name="option2" value="{{ question['option2'] }}" required>
+            </div>
+            <div class="form-group">
+                <label for="option3">Option 3</label>
+                <input type="text" class="form-control" name="option3" value="{{ question['option3'] }}" required>
+            </div>
+            <div class="form-group">
+                <label for="option4">Option 4</label>
+                <input type="text" class="form-control" name="option4" value="{{ question['option4'] }}" required>
+            </div>
+            <div class="form-group">
+                <label for="option5">Option 5</label>
+                <input type="text" class="form-control" name="option5" value="{{ question['option5'] }}">
+            </div>
+            <div class="form-group">
+                <label for="answer">Answer</label>
+                <input type="number" class="form-control" name="answer" value="{{ question['answer'] }}" required>
+            </div>
+            <div class="form-group">
+                <label for="image">Image (base64)</label>
+                <input type="text" class="form-control" name="image" value="{{ question['image'] }}">
+            </div>
+            <button type="submit" class="btn btn-success">Save</button>
+        </form>
+        <a href="{{ url_for('edit_quiz', quiz_id=quiz_id) }}" class="btn btn-secondary">Back to Edit Quiz</a>
+    </div>
+</div>
+{% endblock %}

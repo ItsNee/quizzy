@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Past Attempts{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-8">
+        <h1 class="mb-4">Past Attempts</h1>
+        {% if attempts %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Quiz Name</th>
+                    <th>Score</th>
+                    <th>Total Questions</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for attempt in attempts %}
+                <tr>
+                    <td>{{ attempt['quiz_name'] }}</td>
+                    <td>{{ attempt['score'] }}</td>
+                    <td>{{ attempt['total_questions'] }}</td>
+                    <td>{{ attempt['timestamp'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>You have no past attempts.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

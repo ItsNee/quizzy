@@ -3,15 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Quiz Platform{% endblock %}</title>
+    <title>{% block title %}Quizzy!{% endblock %}</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #121212; /* Dark grey/black background */
+            color: #ffffff; /* White text */
+        }
+        .navbar {
+            background-color: #0c1224; /* Dark blue for the navbar */
+        }
+        .navbar-brand {
+            color: #ffffff !important;
+            font-size: 1.5rem; /* Increase font size */
+            font-weight: bold; /* Make the text bold */
+        }
+        .nav-link {
+            color: #ffffff !important;
+        }
+        .btn-primary, .btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+            background-color: #0c1224 !important; /* Dark blue for buttons */
+            border-color: #0c1224 !important;
+        }
+        .btn-secondary, .btn-secondary:hover, .btn-secondary:focus, .btn-secondary:active {
+            background-color: #6c757d !important; /* Keeping the default secondary button color */
+            border-color: #6c757d !important;
+        }
+        .btn-success, .btn-success:hover, .btn-success:focus, .btn-success:active {
+            background-color: #28a745 !important; /* Green for save button */
+            border-color: #28a745 !important;
+        }
+        .btn-warning, .btn-warning:hover, .btn-warning:focus, .btn-warning:active {
+            background-color: #ffc107 !important; /* Keeping the default warning button color */
+            border-color: #ffc107 !important;
+        }
+        .card {
+            background-color: #1f1f1f; /* Slightly lighter dark background for cards */
+            border-color: #0c1224;
+        }
+        .card-header, .card-footer {
+            background-color: #0c1224;
+            color: #ffffff;
+        }
+        .form-control {
+            background-color: #2a2a2a; /* Dark background for form controls */
+            color: #ffffff; /* White text for form controls */
+        }
+        .form-control:focus {
+            background-color: #2a2a2a;
+            color: #ffffff;
+            border-color: #0c1224;
+            box-shadow: 0 0 0 0.2rem rgba(12, 18, 36, 0.25);
+        }
+        .alert-info {
+            background-color: #0c1224;
+            border-color: #0c1224;
+            color: #ffffff;
+        }
+        .alert-danger {
+            background-color: #721c24;
+            border-color: #f5c6cb;
+            color: #ffffff;
+        }
+        .alert-success {
+            background-color: #155724;
+            border-color: #c3e6cb;
+            color: #ffffff;
+        }
+        .footer {
+            background-color: #0c1224;
+            color: white;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        table {
+            background-color: #1f1f1f; /* Dark background for tables */
+            color: #ffffff; /* White text for tables */
+        }
+        th, td {
+            background-color: #1f1f1f !important; /* Ensure cells have dark background */
+            color: #ffffff !important; /* Ensure text is white */
+            border-color: #0c1224; /* Dark blue border for table cells */
+        }
+        .table-striped tbody tr:nth-of-type(odd) {
+            background-color: #2a2a2a; /* Slightly lighter dark background for striped rows */
+        }
+        .list-group-item {
+            background-color: #1f1f1f !important; /* Dark background for list items */
+            color: #ffffff !important; /* White text for list items */
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/">Quiz Platform</a>
-        <div class="collapse navbar-collapse">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="/">Quizzy!</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 {% if current_user.is_authenticated %}
+                {% if current_user.username == 'admin' %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('admin') }}">Admin Panel</a>
+                </li>
+                {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('past_attempts') }}">Past Attempts</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/logout">Logout</a>
                 </li>
@@ -26,7 +131,7 @@
             </ul>
         </div>
     </nav>
-    <div class="container">
+    <div class="container mt-4">
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 {% for category, message in messages %}
@@ -36,5 +141,11 @@
         {% endwith %}
         {% block content %}{% endblock %}
     </div>
+    <footer class="footer">
+        <p>Made with ❤️ by Nee</p>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

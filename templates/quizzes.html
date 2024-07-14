@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Available Quizzes{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-8">
+        <h1 class="mb-4">Available Quizzes</h1>
+        {% if current_user.username == 'admin' %}
+        <div class="text-right mb-3">
+            <a href="{{ url_for('import_quiz') }}" class="btn btn-success">Import New Quiz</a>
+        </div>
+        {% endif %}
+        <ul class="list-group">
+            {% for quiz in quizzes %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                    <a href="{{ url_for('quiz_question', quiz_id=quiz['id'], question_num=1) }}">{{ quiz['name'] }}</a>
+                    {% if quiz['attempted'] %}
+                    <a href="{{ url_for('resume_quiz', quiz_id=quiz['id']) }}" class="btn btn-secondary btn-sm ml-2">Resume</a>
+                    <form method="POST" action="{{ url_for('restart_quiz', quiz_id=quiz['id']) }}" class="d-inline ml-2">
+                        <button type="submit" class="btn btn-warning btn-sm">Restart</button>
+                    </form>
+                    {% endif %}
+                </div>
+                {% if current_user.username == 'admin' %}
+                <form method="POST" action="{{ url_for('delete_quiz', quiz_id=quiz['id']) }}" onsubmit="return confirm('Are you sure you want to delete this quiz?');" class="mb-0">
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Quiz{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-8">
+        <h1>Edit Quiz</h1>
+        <ul class="list-group mb-4">
+            {% for question in questions %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>{{ question['question'] }}</span>
+                <a href="{{ url_for('edit_question', quiz_id=quiz_id, question_id=question['id']) }}" class="btn btn-primary btn-sm">Edit</a>
+            </li>
+            {% endfor %}
+        </ul>
+        <a href="{{ url_for('admin') }}" class="btn btn-secondary">Back to Admin Panel</a>
+    </div>
+</div>
+{% endblock %}
