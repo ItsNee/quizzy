@@ -507,4 +507,5 @@ def user_attempts(user_id):
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=False)
+    print(f"Registration Code: {REGISTRATION_CODE}")
+    app.run(host='0.0.0.0', port=80)
