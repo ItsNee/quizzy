@@ -1,3 +1,4 @@
 
 data/*.db
 uploads/*.csv
+__pycache__
