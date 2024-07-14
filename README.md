@@ -12,33 +12,7 @@ Quizzy! is a Flask-based quiz platform designed to help educators create, manage
 - **Progress Tracking**: Users can save their progress and resume quizzes later.
 - **Responsive Design**: Mobile-friendly layout.
 
-## Screenshots
-
-### Login and Register Pages
-<div style="display: flex; justify-content: space-between;">
-    <img src="images/login.png" alt="Login Page" style="max-width: 48%; height: auto;">
-    <img src="images/register.png" alt="Register Page" style="max-width: 48%; height: auto;">
-</div>
-
-### Admin Panel and Import Quiz
-<div style="display: flex; justify-content: space-between;">
-    <img src="images/adminPanel.png" alt="Admin Panel" style="max-width: 48%; height: auto;">
-    <img src="images/importQuiz.png" alt="Import Quiz" style="max-width: 48%; height: auto;">
-</div>
-
-### Quizzes List and Quiz Question
-<div style="display: flex; justify-content: space-between;">
-    <img src="images/quizzes.png" alt="Quizzes List" style="max-width: 48%; height: auto;">
-    <img src="images/quizQuestion.png" alt="Quiz Question" style="max-width: 48%; height: auto;">
-</div>
-
-### Quiz Summary and Quiz Attempts
-<div style="display: flex; justify-content: space-between;">
-    <img src="images/quizSummary.png" alt="Quiz Summary" style="max-width: 48%; height: auto;">
-    <img src="images/quizAttempts.png" alt="Quiz Attempts" style="max-width: 48%; height: auto;">
-</div>
-
-
+[__Jump to Screenshots!__](#screenshots)
 
 ## Getting Started
 
@@ -95,6 +69,32 @@ __note: you have to manually create an account named `admin` with this initial t
     ```
     http://127.0.0.1
     ```
+
+## Screenshots
+
+### Login and Register Pages
+<div style="display: flex; justify-content: space-between;">
+    <img src="images/login.png" alt="Login Page" style="max-width: 48%; height: auto;">
+    <img src="images/register.png" alt="Register Page" style="max-width: 48%; height: auto;">
+</div>
+
+### Admin Panel and Import Quiz
+<div style="display: flex; justify-content: space-between;">
+    <img src="images/adminPanel.png" alt="Admin Panel" style="max-width: 48%; height: auto;">
+    <img src="images/importQuiz.png" alt="Import Quiz" style="max-width: 48%; height: auto;">
+</div>
+
+### Quizzes List and Quiz Question
+<div style="display: flex; justify-content: space-between;">
+    <img src="images/quizzes.png" alt="Quizzes List" style="max-width: 48%; height: auto;">
+    <img src="images/quizQuestion.png" alt="Quiz Question" style="max-width: 48%; height: auto;">
+</div>
+
+### Quiz Summary and Quiz Attempts
+<div style="display: flex; justify-content: space-between;">
+    <img src="images/quizSummary.png" alt="Quiz Summary" style="max-width: 48%; height: auto;">
+    <img src="images/quizAttempts.png" alt="Quiz Attempts" style="max-width: 48%; height: auto;">
+</div>
 
 ### File Structure
 ```
