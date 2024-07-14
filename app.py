@@ -10,6 +10,7 @@ from passlib.hash import sha256_crypt
 from models import create_tables  # Import the create_tables function
 
 app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static', static_folder='static/')
 app.secret_key = os.urandom(24)
 
 # Setup login manager
