@@ -19,7 +19,7 @@ Quizzy! is a Flask-based quiz platform designed to help educators create, manage
 ### Quick Start (Instant Deployment:Docker)
 
 ```
-docker run -p 50:80 neeranjan/quizzy-app
+docker run -p 80:80 neeranjan/quizzy-app
 ```
 
 ### Prerequisites
