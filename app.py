@@ -136,9 +136,13 @@ def quiz_question(quiz_id, question_num):
                 VALUES (?, ?, ?, ?)
             ''', (current_user.id, quiz_id, question['id'], answer))
             db.commit()
-
+            
             if request.form['action'] == 'save':
                 flash('Progress saved.', 'success')
+                return redirect(url_for('quiz_question', quiz_id=quiz_id, question_num=question_num))
+            if request.form['action'] == 'rev':
+                answernumber = questions[question_num - 1]['answer']
+                flash("The answer is " + questions[question_num - 1]['option' + str(answernumber)], 'success')
                 return redirect(url_for('quiz_question', quiz_id=quiz_id, question_num=question_num))
             elif request.form['action'] == 'next':
                 if question_num == len(questions):
@@ -157,6 +161,11 @@ def quiz_question(quiz_id, question_num):
     else:
         flash('Error connecting to the database.', 'error')
         return redirect(url_for('quizzes'))
+
+@app.route('/get_answer', methods=['GET'])
+def get_answer():
+    answer = 2
+    return '<div class="card-body"><p>Answer is, ' + answer + '</p></div>'
 
 @app.route('/resume_quiz/<int:quiz_id>', methods=['GET'])
 @login_required

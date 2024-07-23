@@ -3,6 +3,7 @@
 {% block title %}Quiz Question{% endblock %}
 
 {% block content %}
+
 <div class="row justify-content-center mt-5">
     <div class="col-md-8">
         <h1 class="text-white">Question {{ question_num }} of {{ total_questions }}</h1>
@@ -42,6 +43,7 @@
                     {% endif %}
                 </div>
                 <div>
+                    <button type="submit" name="action" value="rev" class="btn btn-secondary">Reveal Answer</button>
                     <button type="submit" name="action" value="save" class="btn btn-secondary">Save</button>
                     <button type="submit" name="action" value="next" class="btn btn-success">Next</button>
                 </div>
