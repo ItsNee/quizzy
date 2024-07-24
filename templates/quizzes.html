@@ -15,7 +15,7 @@
             {% for quiz in quizzes %}
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 <div>
-                    <a href="{{ url_for('quiz_question', quiz_id=quiz['id'], question_num=1) }}">{{ quiz['name'] }}</a>
+                    <a href="{{ url_for('quiz_question', quiz_id=quiz['id'], question_num=1, sugma=1) }}">{{ quiz['name'] }}</a>
                     {% if quiz['attempted'] %}
                     <a href="{{ url_for('resume_quiz', quiz_id=quiz['id']) }}" class="btn btn-secondary btn-sm ml-2">Resume</a>
                     <form method="POST" action="{{ url_for('restart_quiz', quiz_id=quiz['id']) }}" class="d-inline ml-2">

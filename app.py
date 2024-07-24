@@ -108,7 +108,6 @@ def quizzes():
             result = cursor.fetchone()
             quiz_dict['attempted'] = result['attempt_count'] > 0
             quizzes_list.append(quiz_dict)
-
         return render_template('quizzes.html', quizzes=quizzes_list)
     else:
         flash('Error connecting to the database.', 'error')
@@ -130,11 +129,17 @@ def quiz_question(quiz_id, question_num):
         question = questions[question_num - 1]
 
         if request.method == 'POST':
-            answer = request.form.get(f'q{question["id"]}')
+            if questions[question_num - 1]['multiple']:
+                answer = request.form.getlist(f'qn')
+                answer = ''.join(answer)
+                print(answer)
+            else:
+                answer = request.form.get(f'q{question["id"]}')
+            
             cursor.execute('''
                 INSERT OR REPLACE INTO user_progress (user_id, quiz_id, question_id, answer)
                 VALUES (?, ?, ?, ?)
-            ''', (current_user.id, quiz_id, question['id'], answer))
+                ''', (current_user.id, quiz_id, question['id'], answer))
             db.commit()
             
             if request.form['action'] == 'save':
@@ -142,7 +147,11 @@ def quiz_question(quiz_id, question_num):
                 return redirect(url_for('quiz_question', quiz_id=quiz_id, question_num=question_num))
             if request.form['action'] == 'rev':
                 answernumber = questions[question_num - 1]['answer']
-                flash("The answer is " + questions[question_num - 1]['option' + str(answernumber)], 'success')
+                print(answernumber)
+                if answernumber > 4:
+                    flash("The answer is " + questions[question_num - 1]['option' + str(answernumber)[0]] + " and " + questions[question_num - 1]['option' + str(answernumber)[1] ], 'success')
+                else:
+                    flash("The answer is " + questions[question_num - 1]['option' + str(answernumber)], 'success')
                 return redirect(url_for('quiz_question', quiz_id=quiz_id, question_num=question_num))
             elif request.form['action'] == 'next':
                 if question_num == len(questions):
@@ -345,7 +354,8 @@ def load_csv_to_db(file_path, quiz_name):
             '4': 'option4',
             '5': 'option5',
             'answer': 'answer',
-            'image': 'image'
+            'image': 'image',
+            'multiple' : 'multiple'
         })
         
         # Insert the quiz into the quizzes table
@@ -355,9 +365,9 @@ def load_csv_to_db(file_path, quiz_name):
         
         for _, row in df.iterrows():
             cursor.execute('''
-            INSERT INTO questions (quiz_id, question, option1, option2, option3, option4, option5, answer, image)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-            ''', (quiz_id, row['question'], row['option1'], row['option2'], row['option3'], row['option4'], row['option5'], row['answer'], row['image']))
+            INSERT INTO questions (quiz_id, question, option1, option2, option3, option4, option5, answer, image, multiple)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ''', (quiz_id, row['question'], row['option1'], row['option2'], row['option3'], row['option4'], row['option5'], row['answer'], row['image'], row['multiple']))
         db.commit()
     else:
         flash('Error connecting to the database.', 'error')
