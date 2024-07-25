@@ -130,7 +130,7 @@ def quiz_question(quiz_id, question_num):
 
         if request.method == 'POST':
             if questions[question_num - 1]['multiple']:
-                answer = request.form.getlist(f'qn')
+                answer = request.form.getlist(f'q{question["id"]}')
                 answer = ''.join(answer)
                 print(answer)
             else:
@@ -147,11 +147,18 @@ def quiz_question(quiz_id, question_num):
                 return redirect(url_for('quiz_question', quiz_id=quiz_id, question_num=question_num))
             if request.form['action'] == 'rev':
                 answernumber = questions[question_num - 1]['answer']
-                print(answernumber)
                 if answernumber > 4:
-                    flash("The answer is " + questions[question_num - 1]['option' + str(answernumber)[0]] + " and " + questions[question_num - 1]['option' + str(answernumber)[1] ], 'success')
+                    print(answernumber)
+                    print(answer)
+                    if str(answer) == str(answernumber):
+                        flash("You are correct! The answer is " + questions[question_num - 1]['option' + str(answernumber)[0]] + " and " + questions[question_num - 1]['option' + str(answernumber)[1]], 'success')
+                    else:
+                        flash("You are wrong! The answer is " + questions[question_num - 1]['option' + str(answernumber)[0]] + " and wrong " + questions[question_num - 1]['option' + str(answernumber)[1]], 'danger')
                 else:
-                    flash("The answer is " + questions[question_num - 1]['option' + str(answernumber)], 'success')
+                    if str(answer) == str(answernumber):
+                        flash("You are correct! The answer is " + questions[question_num - 1]['option' + str(answernumber)], 'success')
+                    else:
+                        flash("You are wrong! The answer is " + questions[question_num - 1]['option' + str(answernumber)], 'danger')
                 return redirect(url_for('quiz_question', quiz_id=quiz_id, question_num=question_num))
             elif request.form['action'] == 'next':
                 if question_num == len(questions):
