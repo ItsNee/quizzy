@@ -151,9 +151,9 @@ def quiz_question(quiz_id, question_num):
                     print(answernumber)
                     print(answer)
                     if str(answer) == str(answernumber):
-                        flash("You are correct! The answer is " + questions[question_num - 1]['option' + str(answernumber)[0]] + " and " + questions[question_num - 1]['option' + str(answernumber)[1]], 'success')
+                        flash("You are correct! The answer is " + questions[question_num - 1]['option' + str(answernumber)[0]] + " and " + questions[question_num - 1]['option' + str(answernumber)[0]], 'success')
                     else:
-                        flash("You are wrong! The answer is " + questions[question_num - 1]['option' + str(answernumber)[0]] + " and wrong " + questions[question_num - 1]['option' + str(answernumber)[1]], 'danger')
+                        flash("You are wrong! The answer is " + questions[question_num - 1]['option' + str(answernumber)[0]] + " and wrong " + questions[question_num - 1]['option' + str(answernumber)[0]], 'danger')
                 else:
                     if str(answer) == str(answernumber):
                         flash("You are correct! The answer is " + questions[question_num - 1]['option' + str(answernumber)], 'success')
