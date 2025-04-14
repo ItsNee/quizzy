@@ -42,6 +42,7 @@ def create_tables():
         option5 TEXT,
         answer INTEGER,
         image TEXT,
+        multiple TEXT,
         FOREIGN KEY (quiz_id) REFERENCES quizzes (id)
     )
     ''')
