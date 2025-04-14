@@ -29,9 +29,9 @@ docker run -p 80:80 neeranjan/quizzy-app
 
 ### Database
 CSVs containing questions/images/answers can be imported into the platform. The CSV should be formatted as such:
-| Question      | 1        | 2        | 3        | 4        | 5        |  Answer        | Image                       |
-| ------------- | -------- | -------- | -------- | -------- | -------- | -------------- | --------------------------- |
-| Your Question | Option 1 | Option 2 | Option 3 | Option 4 | Option 5 | Correct Answer | Image in img src tag format |
+| Question      | 1        | 2        | 3        | 4        | 5        |  Answer        | Image                       | Multiple                    |
+| ------------- | -------- | -------- | -------- | -------- | -------- | -------------- | --------------------------- | --------------------------- |
+| Your Question | Option 1 | Option 2 | Option 3 | Option 4 | Option 5 | Correct Answer | Image in img src tag format | 1/0                         |
 - Options can be left blank if needed
 
 <img src="images/exampleCsv.png" alt="Login Page" style="max-width: 48%; height: auto;">
