@@ -3,45 +3,66 @@
 {% block title %}Edit Question{% endblock %}
 
 {% block content %}
-<div class="row justify-content-center mt-5">
-    <div class="col-md-8">
-        <h1>Edit Question</h1>
-        <form method="post" class="mb-4">
-            <div class="form-group">
-                <label for="question">Question</label>
-                <input type="text" class="form-control" name="question" value="{{ question['question'] }}" required>
-            </div>
-            <div class="form-group">
-                <label for="option1">Option 1</label>
-                <input type="text" class="form-control" name="option1" value="{{ question['option1'] }}" required>
-            </div>
-            <div class="form-group">
-                <label for="option2">Option 2</label>
-                <input type="text" class="form-control" name="option2" value="{{ question['option2'] }}" required>
-            </div>
-            <div class="form-group">
-                <label for="option3">Option 3</label>
-                <input type="text" class="form-control" name="option3" value="{{ question['option3'] }}" required>
-            </div>
-            <div class="form-group">
-                <label for="option4">Option 4</label>
-                <input type="text" class="form-control" name="option4" value="{{ question['option4'] }}" required>
-            </div>
-            <div class="form-group">
-                <label for="option5">Option 5</label>
-                <input type="text" class="form-control" name="option5" value="{{ question['option5'] }}">
-            </div>
-            <div class="form-group">
-                <label for="answer">Answer</label>
-                <input type="number" class="form-control" name="answer" value="{{ question['answer'] }}" required>
-            </div>
-            <div class="form-group">
-                <label for="image">Image (base64)</label>
-                <input type="text" class="form-control" name="image" value="{{ question['image'] }}">
-            </div>
-            <button type="submit" class="btn btn-success">Save</button>
-        </form>
-        <a href="{{ url_for('edit_quiz', quiz_id=quiz_id) }}" class="btn btn-secondary">Back to Edit Quiz</a>
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            <h1>Edit Question</h1>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                <div class="mb-3">
+                    <label for="question" class="form-label">Question</label>
+                    <textarea class="form-control" id="question" name="question" rows="3" required>{{ question['question'] }}</textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="option1" class="form-label">Option 1</label>
+                    <input type="text" class="form-control" id="option1" name="option1" value="{{ question['option1'] }}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="option2" class="form-label">Option 2</label>
+                    <input type="text" class="form-control" id="option2" name="option2" value="{{ question['option2'] }}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="option3" class="form-label">Option 3</label>
+                    <input type="text" class="form-control" id="option3" name="option3" value="{{ question['option3'] }}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="option4" class="form-label">Option 4</label>
+                    <input type="text" class="form-control" id="option4" name="option4" value="{{ question['option4'] }}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="option5" class="form-label">Option 5 (optional)</label>
+                    <input type="text" class="form-control" id="option5" name="option5" value="{{ question['option5'] }}">
+                </div>
+                <div class="mb-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="multiple" name="multiple" {% if question['multiple'] == 1 %}checked{% endif %}>
+                        <label class="form-check-label" for="multiple">
+                            Multiple Correct Answers Allowed
+                        </label>
+                    </div>
+                    <small class="form-text text-muted">
+                        For multiple-choice questions, enter correct answers as a string of digits (e.g., "134" for options 1, 3, and 4)
+                    </small>
+                </div>
+                <div class="mb-3">
+                    <label for="answer" class="form-label">Correct Answer</label>
+                    <input type="text" class="form-control" id="answer" name="answer" value="{{ question['answer'] }}" required>
+                    <small class="form-text text-muted">
+                        For single-choice questions, enter the option number (1-5).<br>
+                        For multiple-choice questions, enter the correct options without spaces (e.g., "134").
+                    </small>
+                </div>
+                <div class="mb-3">
+                    <label for="image" class="form-label">Image URL (optional)</label>
+                    <input type="text" class="form-control" id="image" name="image" value="{{ question['image'] }}">
+                </div>
+                <div class="d-flex justify-content-between">
+                    <a href="{{ url_for('edit_quiz', quiz_id=quiz_id) }}" class="btn btn-secondary">Back to Questions</a>
+                    <button type="submit" class="btn btn-primary">Update Question</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 {% endblock %}

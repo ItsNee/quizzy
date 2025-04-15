@@ -3,82 +3,178 @@
 {% block title %}Quiz Question{% endblock %}
 
 {% block content %}
-
-<div class="row justify-content-center mt-5">
-    <div class="col-md-8">
-        <h1 class="text-white">Question {{ question_num }} of {{ total_questions }}</h1>
-        <form method="post">
-            <div class="card mb-4">
-                <div class="card-body">
-                    <p><strong>{{ question['question'] }}</strong></p>
+<div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10">
+        <div class="card shadow-lg mb-5">
+            <div class="card-header">
+                <h3 class="mb-0">Question {{ question_num }} of {{ total_questions }}</h3>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    <div class="mb-4">
+                        <h4 class="question-text">{{ question['question'] }}</h4>
+                    </div>
+                    
                     {% if question['image'] %}
-                    <img src="{{ question['image'] }}" class="img-fluid mb-3" alt="Question Image">
+                    <div class="text-center mb-4">
+                        <img src="{{ question['image'] }}" class="img-fluid rounded" alt="Question Image" style="max-height: 300px;">
+                    </div>
                     {% endif %}
-                    {% if question['multiple'] %}
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="q{{ question['id'] }}" value="1" {% if progress and 1|string in progress['answer']|string  %}checked{% endif %}>
-                        <label class="form-check-label">{{ question['option1'] }}</label>
+                    
+                    {% if question['multiple'] == 1 %}
+                    <div class="alert alert-info mb-4">
+                        This is a multiple-choice question. Select all correct answers.
                     </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="q{{ question['id'] }}" value="2" {% if progress and 2|string in progress['answer']|string %}checked{% endif %}>
-                        <label class="form-check-label">{{ question['option2'] }}</label>
+                    
+                    <div class="options-container">
+                        <div class="option-item">
+                            <label class="option-label" for="option1-{{ question['id'] }}">
+                                <input class="form-check-input" type="checkbox" id="option1-{{ question['id'] }}" name="q{{ question['id'] }}" value="1" {% if user_selections and '1' in user_selections %}checked{% endif %}>
+                                <span class="option-text">{{ question['option1'] }}</span>
+                            </label>
+                        </div>
+                        
+                        <div class="option-item">
+                            <label class="option-label" for="option2-{{ question['id'] }}">
+                                <input class="form-check-input" type="checkbox" id="option2-{{ question['id'] }}" name="q{{ question['id'] }}" value="2" {% if user_selections and '2' in user_selections %}checked{% endif %}>
+                                <span class="option-text">{{ question['option2'] }}</span>
+                            </label>
+                        </div>
+                        
+                        <div class="option-item">
+                            <label class="option-label" for="option3-{{ question['id'] }}">
+                                <input class="form-check-input" type="checkbox" id="option3-{{ question['id'] }}" name="q{{ question['id'] }}" value="3" {% if user_selections and '3' in user_selections %}checked{% endif %}>
+                                <span class="option-text">{{ question['option3'] }}</span>
+                            </label>
+                        </div>
+                        
+                        <div class="option-item">
+                            <label class="option-label" for="option4-{{ question['id'] }}">
+                                <input class="form-check-input" type="checkbox" id="option4-{{ question['id'] }}" name="q{{ question['id'] }}" value="4" {% if user_selections and '4' in user_selections %}checked{% endif %}>
+                                <span class="option-text">{{ question['option4'] }}</span>
+                            </label>
+                        </div>
+                        
+                        {% if question['option5'] %}
+                        <div class="option-item">
+                            <label class="option-label" for="option5-{{ question['id'] }}">
+                                <input class="form-check-input" type="checkbox" id="option5-{{ question['id'] }}" name="q{{ question['id'] }}" value="5" {% if user_selections and '5' in user_selections %}checked{% endif %}>
+                                <span class="option-text">{{ question['option5'] }}</span>
+                            </label>
+                        </div>
+                        {% endif %}
                     </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="q{{ question['id'] }}" value="3" {% if progress and 3|string in progress['answer']|string %}checked{% endif %}>
-                        <label class="form-check-label">{{ question['option3'] }}</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="q{{ question['id'] }}" value="4" {% if progress and 4|string in progress['answer']|string %}checked{% endif %}>
-                        <label class="form-check-label">{{ question['option4'] }}</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="q{{ question['id'] }}" value="5" {% if progress and 5|string in progress['answer']|string %}checked{% endif %}>
-                        <label class="form-check-label">{{ question['option5'] }}</label>
-                    </div>
+                    
                     {% else %}
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="q{{ question['id'] }}" value="1" {% if progress and progress['answer'] == 1 %}checked{% endif %} required>
-                        <label class="form-check-label">{{ question['option1'] }}</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="q{{ question['id'] }}" value="2" {% if progress and progress['answer'] == 2 %}checked{% endif %}>
-                        <label class="form-check-label">{{ question['option2'] }}</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="q{{ question['id'] }}" value="3" {% if progress and progress['answer'] == 3 %}checked{% endif %}>
-                        <label class="form-check-label">{{ question['option3'] }}</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="q{{ question['id'] }}" value="4" {% if progress and progress['answer'] == 4 %}checked{% endif %}>
-                        <label class="form-check-label">{{ question['option4'] }}</label>
-                    </div>
-                    {% if question['option5'] %}
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="q{{ question['id'] }}" value="5" {% if progress and progress['answer'] == 5 %}checked{% endif %}>
-                        <label class="form-check-label">{{ question['option5'] }}</label>
+                    <div class="options-container">
+                        <div class="option-item">
+                            <label class="option-label" for="option1-{{ question['id'] }}">
+                                <input class="form-check-input" type="radio" id="option1-{{ question['id'] }}" name="q{{ question['id'] }}" value="1" {% if progress and progress['answer'] == option_mapping['1'] %}checked{% endif %} required>
+                                <span class="option-text">{{ question['option1'] }}</span>
+                            </label>
+                        </div>
+                        
+                        <div class="option-item">
+                            <label class="option-label" for="option2-{{ question['id'] }}">
+                                <input class="form-check-input" type="radio" id="option2-{{ question['id'] }}" name="q{{ question['id'] }}" value="2" {% if progress and progress['answer'] == option_mapping['2'] %}checked{% endif %}>
+                                <span class="option-text">{{ question['option2'] }}</span>
+                            </label>
+                        </div>
+                        
+                        <div class="option-item">
+                            <label class="option-label" for="option3-{{ question['id'] }}">
+                                <input class="form-check-input" type="radio" id="option3-{{ question['id'] }}" name="q{{ question['id'] }}" value="3" {% if progress and progress['answer'] == option_mapping['3'] %}checked{% endif %}>
+                                <span class="option-text">{{ question['option3'] }}</span>
+                            </label>
+                        </div>
+                        
+                        <div class="option-item">
+                            <label class="option-label" for="option4-{{ question['id'] }}">
+                                <input class="form-check-input" type="radio" id="option4-{{ question['id'] }}" name="q{{ question['id'] }}" value="4" {% if progress and progress['answer'] == option_mapping['4'] %}checked{% endif %}>
+                                <span class="option-text">{{ question['option4'] }}</span>
+                            </label>
+                        </div>
+                        
+                        {% if question['option5'] %}
+                        <div class="option-item">
+                            <label class="option-label" for="option5-{{ question['id'] }}">
+                                <input class="form-check-input" type="radio" id="option5-{{ question['id'] }}" name="q{{ question['id'] }}" value="5" {% if progress and progress['answer'] == option_mapping['5'] %}checked{% endif %}>
+                                <span class="option-text">{{ question['option5'] }}</span>
+                            </label>
+                        </div>
+                        {% endif %}
                     </div>
                     {% endif %}
-                    {% endif %}
-                </div>
+                    
+                    <div class="d-flex justify-content-between mt-4">
+                        <div>
+                            {% if question_num > 1 %}
+                            <a href="{{ url_for('quiz_question', quiz_id=quiz_id, question_num=question_num - 1) }}" class="btn btn-secondary">Back</a>
+                            {% endif %}
+                        </div>
+                        <div>
+                            <button type="submit" name="action" value="rev" class="btn btn-secondary">Reveal Answer</button>
+                            <button type="submit" name="action" value="save" class="btn btn-secondary">Save</button>
+                            <button type="submit" name="action" value="next" class="btn btn-success">Next</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div class="d-flex justify-content-between mb-3">
-                <div>
-                    {% if question_num > 1 %}
-                    <a href="{{ url_for('quiz_question', quiz_id=quiz_id, question_num=question_num - 1) }}" class="btn btn-secondary">Back</a>
-                    {% endif %}
-                </div>
-                <div>
-                    <button type="submit" name="action" value="rev" class="btn btn-secondary">Reveal Answer</button>
-                    <button type="submit" name="action" value="save" class="btn btn-secondary">Save</button>
-                    <button type="submit" name="action" value="next" class="btn btn-success">Next</button>
-                </div>
+            <div class="card-footer text-center">
+                <form method="POST" action="{{ url_for('restart_quiz', quiz_id=quiz_id) }}" onsubmit="return confirm('Are you sure you want to restart this quiz? Your progress will be lost.');">
+                    <button type="submit" class="btn btn-warning">Restart Quiz</button>
+                </form>
             </div>
-        </form>
-        <div class="text-center mt-4">
-            <form method="POST" action="{{ url_for('restart_quiz', quiz_id=quiz_id) }}">
-                <button type="submit" class="btn btn-warning">Restart Quiz</button>
-            </form>
         </div>
     </div>
 </div>
+
+<style>
+    .question-text {
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .options-container {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .option-item {
+        border: 1px solid #0c1224;
+        border-radius: 6px;
+        padding: 0;
+        transition: all 0.2s ease;
+        background-color: #1f1f1f;
+    }
+    
+    .option-item:hover {
+        border-color: #0c1224;
+        background-color: #2a2a2a;
+    }
+    
+    .option-label {
+        display: flex;
+        align-items: center;
+        padding: 12px 15px;
+        cursor: pointer;
+        width: 100%;
+        margin: 0;
+    }
+    
+    .option-text {
+        margin-left: 12px;
+    }
+    
+    .form-check-input {
+        margin-top: 0;
+    }
+    
+    /* Style for selected radio/checkbox options */
+    .option-item:has(input:checked) {
+        border-color: #0c1224;
+        background-color: #0c1224;
+    }
+</style>
 {% endblock %}
